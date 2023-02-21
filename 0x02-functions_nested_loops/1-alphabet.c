@@ -3,10 +3,10 @@
 /**
  * print_alphabet -prints the alphabet, in lowercase
  *
- * Return : always 0
+ * Return: always 0
  */
 
-char print_alphabet(void)
+void print_alphabet(void)
 {
 	char i;
 
