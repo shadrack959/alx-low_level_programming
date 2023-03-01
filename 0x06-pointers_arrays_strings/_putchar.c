@@ -1,4 +1,4 @@
 /**
- * empty
+ * empty - empty
  */
-void _putchar_c (void);
+void _putchar_c(void);
