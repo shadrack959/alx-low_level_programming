@@ -12,7 +12,9 @@ int is_palindrome(char *s);
  */
 int is_palindrome(char *s)
 {
-	int len = 0;
-
-	if (*(s + len))
-	{
+		if (i > s.size() / 2)
+		{
+			return (true);
+		}
+	return (s[i] == s[s.size() - i - 1] && isPalindrome(s, i + 1));
+}
