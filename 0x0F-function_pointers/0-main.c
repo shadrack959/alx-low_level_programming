@@ -28,7 +28,7 @@ void print_name_uppercase(char *name)
 	{
 	if (name[i] >= 'a' && name[i] <= 'z')
 	{
- 		putchar(name[i] + 'A' - 'a');
+		putchar(name[i] + 'A' - 'a');
 	}
 	else
 	{
