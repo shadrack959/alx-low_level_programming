@@ -1,83 +1,50 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
 #include "variadic_functions.h"
+#include <stdarg.h>
+#include <stdio.h>
 
 /**
- * print_string - Print the string
- * @args: Where the string is
- */
-void print_string(va_list args)
-{
-	char *string;
-
-	string = va_arg(args, char *);
-	if (string == NULL)
-		string = "(nil)";
-	printf("%s",  string);
-}
-
-/**
- * print_char - Print the char
- * @args: Where the char is
- */
-void print_char(va_list args)
-{
-	printf("%c", va_arg(args, int));
-}
-
-/**
- * print_int - Print the int
- * @args: Where the int is
- */
-void print_int(va_list args)
-{
-	printf("%d", va_arg(args, int));
-}
-
-/**
- * print_float - Print the float
- * @args: Where the float is
- */
-void print_float(va_list args)
-{
-	printf("%f", va_arg(args, double));
-}
-
-/**
- * print_all - Print any type of given argument
- * @format: List of types of arguments being passed
+ * print_all - prints anything
+ * @format: list of types of arguments passed to the function
  */
 void print_all(const char * const format, ...)
 {
-	va_list args;
-	char *sep;
-	print_form_t print_form[] = {
-		{"c", print_char},
-		{"i", print_int},
-		{"f", print_float},
-		{"s", print_string}
-	};
-	int i, j;
+	int i = 0;
+	char *str, *sep = "";
 
-	va_start(args, format);
-	i = 0;
-	sep = "";
-	while (format != NULL && format[i] != '\0')
+	va_list list;
+
+	va_start(list, format);
+
+	if (format)
 	{
-		j = 0;
-		while (j < 4)
+		while (format[i])
 		{
-			if (*print_form[j].c == format[i])
+			switch (format[i])
 			{
-				printf("%s", sep);
-				print_form[j].f(args, sep);
-				sep = ", ";
+				case 'c':
+					printf("%s%c", sep, va_arg(list, int));
+					break;
+				case 'i':
+					printf("%s%d", sep, va_arg(list, int));
+					break;
+				case 'f':
+					printf("%s%f", sep, va_arg(list, double));
+					break;
+				case 's':
+					str = va_arg(list, char *);
+					if (!str)
+						str = "(nil)";
+					printf("%s%s", sep, str);
+					break;
+				default:
+					i++;
+					continue;
 			}
-			j++;
+			sep = ", ";
+			i++;
 		}
-		i++;
 	}
+
 	printf("\n");
-	va_end(args);
+	va_end(list);
 }
